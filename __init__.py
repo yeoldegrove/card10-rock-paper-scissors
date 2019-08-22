@@ -82,4 +82,3 @@ while True:
         utime.sleep(3)
 
 light_sensor.stop()
-
