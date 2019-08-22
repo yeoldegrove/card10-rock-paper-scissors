@@ -61,11 +61,13 @@ items = [rock, paper, scissors]
 
 # rules
 text1 = "Let's play!"
-text2 = "cover me..."
+text2 = "cover"
+text3 = "lightsensor"
 
 with display.open() as disp:
     disp.print(text1, fg=(255, 0, 0), posx=80 - round(len(text1) / 2 * 14), posy=20)
-    disp.print(text2, fg=(255, 0, 0), posx=80 - round(len(text1) / 2 * 14), posy=42)
+    disp.print(text2, fg=(255, 0, 0), posx=80 - round(len(text2) / 2 * 14), posy=42)
+    disp.print(text3, fg=(255, 0, 0), posx=80 - round(len(text3) / 2 * 14), posy=64)
     disp.update()
 
 
