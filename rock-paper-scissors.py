@@ -73,12 +73,13 @@ with display.open() as disp:
 
 light_sensor.start()
 
-threshold = 25
+threshold = 1
 while True:
     light = light_sensor.get_reading()
-    if light < threshold:
+    if light <= threshold:
         check()
         urandom.choice(items)()
+        utime.sleep(3)
 
 light_sensor.stop()
 
