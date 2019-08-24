@@ -1,10 +1,19 @@
+import display
+import bhi160
 import leds
 import utime
-import display
 import urandom
-import light_sensor
-import leds
 import color
+
+def rules():
+    text1 = "Let's play!"
+    text2 = "3 rounds!"
+    text3 = "Shake Me!"
+    disp.clear()
+    disp.print(text1, fg=(255, 0, 0), posy=20)
+    disp.print(text2, fg=(255, 0, 0), posy=42)
+    disp.print(text3, fg=(255, 0, 0), posy=64)
+    disp.update()
 
 def rock():
     disp.clear()
@@ -47,36 +56,29 @@ def check():
     utime.sleep(1)
     leds.clear()
 
-# open
 disp = display.open()
-
-# clear
-disp.clear()
-disp.update()
-
-# items
 items = [rock, paper, scissors]
+sensor = bhi160.BHI160Accelerometer()
+threshold = 2.0
 
-# rules
-text1 = "Let's play!"
-text2 = "cover"
-text3 = "lightsensor"
-
-disp.print(text1, fg=(255, 0, 0), posx=(80 - round(len(text1) / 2 * 14)), posy=20)
-disp.print(text2, fg=(255, 0, 0), posx=(80 - round(len(text2) / 2 * 14)), posy=42)
-disp.print(text3, fg=(255, 0, 0), posx=(80 - round(len(text3) / 2 * 14)), posy=64)
-disp.update()
-
-light_sensor.start()
-
-threshold = 1
+# shake
+# kudos to https://badge.team/projects/schnick_schnack_schnuck
 while True:
-    light = light_sensor.get_reading()
-    if light <= threshold:
-        check()
-        urandom.choice(items)()
-        utime.sleep(3)
-
-light_sensor.stop()
-disp.close()
-
+    rules()
+    round = 0
+    while round < 3:
+        samples = sensor.read()
+    
+        if len(samples) > 0:
+            sample = samples[0]
+    
+            x = abs(sample.x)
+            y = abs(sample.y)
+            z = abs(sample.z)
+    
+            value = x + y + z
+            if (value > threshold):
+                check()
+                urandom.choice(items)()
+                utime.sleep(2)
+                round += 1
