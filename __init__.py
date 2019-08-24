@@ -7,27 +7,24 @@ import leds
 import color
 
 def rock():
-    with display.open() as disp:
-        disp.clear()
-        disp.circ(70, 50, 20, size=3, filled=True)
-        disp.circ(80, 40, 15, size=3, filled=True)
-        disp.circ(60, 30, 17, size=3, filled=True)
-        disp.update()
+    disp.clear()
+    disp.circ(70, 50, 20, size=3, filled=True)
+    disp.circ(80, 40, 15, size=3, filled=True)
+    disp.circ(60, 30, 17, size=3, filled=True)
+    disp.update()
 
 def paper():
-    with display.open() as disp:
-        disp.clear()
-        disp.rect(30, 20, 110, 60, col=None, filled=True, size=1)
-        disp.update()
+    disp.clear()
+    disp.rect(30, 20, 110, 60, col=None, filled=True, size=1)
+    disp.update()
 
 def scissors():
-    with display.open() as disp:
-        disp.clear()
-        disp.line(30, 30, 90, 60, size=2)
-        disp.line(30, 60, 90, 30, size=2)
-        disp.circ(100, 26, 10, size=3, filled=0)
-        disp.circ(100, 62, 10, size=3, filled=0)
-        disp.update()
+    disp.clear()
+    disp.line(30, 30, 90, 60, size=2)
+    disp.line(30, 60, 90, 30, size=2)
+    disp.circ(100, 26, 10, size=3, filled=0)
+    disp.circ(100, 62, 10, size=3, filled=0)
+    disp.update()
 
 def check():
     leds.set_all([
@@ -50,11 +47,12 @@ def check():
     utime.sleep(1)
     leds.clear()
 
+# open
+disp = display.open()
 
 # clear
-with display.open() as disp:
-    disp.clear()
-    disp.update()
+disp.clear()
+disp.update()
 
 # items
 items = [rock, paper, scissors]
@@ -64,12 +62,10 @@ text1 = "Let's play!"
 text2 = "cover"
 text3 = "lightsensor"
 
-with display.open() as disp:
-    disp.print(text1, fg=(255, 0, 0), posx=80 - round(len(text1) / 2 * 14), posy=20)
-    disp.print(text2, fg=(255, 0, 0), posx=80 - round(len(text2) / 2 * 14), posy=42)
-    disp.print(text3, fg=(255, 0, 0), posx=80 - round(len(text3) / 2 * 14), posy=64)
-    disp.update()
-
+disp.print(text1, fg=(255, 0, 0), posx=(80 - round(len(text1) / 2 * 14)), posy=20)
+disp.print(text2, fg=(255, 0, 0), posx=(80 - round(len(text2) / 2 * 14)), posy=42)
+disp.print(text3, fg=(255, 0, 0), posx=(80 - round(len(text3) / 2 * 14)), posy=64)
+disp.update()
 
 light_sensor.start()
 
@@ -82,3 +78,5 @@ while True:
         utime.sleep(3)
 
 light_sensor.stop()
+disp.close()
+
